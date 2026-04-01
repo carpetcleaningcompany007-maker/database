@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Invoice {{ invoice['id'] }}{% endblock %}
+{% block page_title %}Invoice #{{ invoice['id'] }}{% endblock %}
+{% block content %}
+<section class="card document-card">
+  <div class="doc-header">
+    <div>
+      <h2>{{ business['business_name'] }}</h2>
+      <p>{{ business['address'] }}<br>{{ business['phone'] }}<br>{{ business['email'] }}<br>{{ business['website'] }}</p>
+    </div>
+    <div>
+      <strong>Invoice #{{ invoice['id'] }}</strong><br>
+      Date: {{ invoice['invoice_date'] }}<br>
+      Due: {{ invoice['due_date'] or 'N/A' }}<br>
+      Status: {{ invoice['status'] }}
+    </div>
+  </div>
+  <hr>
+  <h3>Customer</h3>
+  <p>{{ invoice['customer_name'] }}<br>{{ invoice['address1'] }}<br>{{ invoice['town'] }} {{ invoice['postcode'] }}<br>{{ invoice['phone'] }}<br>{{ invoice['email'] }}</p>
+  <h3>Description</h3>
+  <p>{{ (invoice['description'] or invoice['service_type'] or '')|replace('\n', '<br>')|safe }}</p>
+  {% if invoice['job_date'] %}<p class="muted">Related job date: {{ invoice['job_date'] }}</p>{% endif %}
+  <h3>Total due</h3>
+  <p class="total">£{{ '%.2f'|format(invoice['amount']) }}</p>
+  {% if invoice['notes'] %}<h3>Notes</h3><p>{{ invoice['notes']|replace('\n', '<br>')|safe }}</p>{% endif %}
+  <div class="form-actions">
+    <button class="button" onclick="window.print()">Print invoice</button>
+    <a class="button secondary" href="{{ url_for('invoices') }}">Back</a>
+  </div>
+</section>
+{% endblock %}

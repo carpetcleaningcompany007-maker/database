@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Carpet Cleaning CRM{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">CRM</div>
+        <div>
+          <div class="brand-name">{{ business['business_name'] }}</div>
+          <div class="brand-sub">Carpet Cleaning CRM</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('customers') }}">Customers</a>
+        <a href="{{ url_for('jobs') }}">Jobs</a>
+        <a href="{{ url_for('quotes') }}">Quotes</a>
+        <a href="{{ url_for('invoices') }}">Invoices</a>
+        <a href="{{ url_for('settings') }}">Settings</a>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1>{% block page_title %}Dashboard{% endblock %}</h1>
+          <p class="muted">{{ business['phone'] }} • {{ business['website'] }}</p>
+        </div>
+      </header>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="flash-wrap">
+            {% for message in messages %}
+              <div class="flash">{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Quote {{ quote['id'] }}{% endblock %}
+{% block page_title %}Quote #{{ quote['id'] }}{% endblock %}
+{% block content %}
+<section class="card document-card">
+  <div class="doc-header">
+    <div>
+      <h2>{{ business['business_name'] }}</h2>
+      <p>{{ business['address'] }}<br>{{ business['phone'] }}<br>{{ business['email'] }}<br>{{ business['website'] }}</p>
+    </div>
+    <div>
+      <strong>Quote #{{ quote['id'] }}</strong><br>
+      Date: {{ quote['quote_date'] }}<br>
+      Valid until: {{ quote['valid_until'] or 'N/A' }}<br>
+      Status: {{ quote['status'] }}
+    </div>
+  </div>
+  <hr>
+  <h3>Customer</h3>
+  <p>{{ quote['customer_name'] }}<br>{{ quote['address1'] }}<br>{{ quote['town'] }} {{ quote['postcode'] }}<br>{{ quote['phone'] }}<br>{{ quote['email'] }}</p>
+  <h3>Description</h3>
+  <p>{{ quote['description']|replace('\n', '<br>')|safe }}</p>
+  <h3>Total</h3>
+  <p class="total">£{{ '%.2f'|format(quote['amount']) }}</p>
+  {% if quote['notes'] %}<h3>Notes</h3><p>{{ quote['notes']|replace('\n', '<br>')|safe }}</p>{% endif %}
+  <div class="form-actions">
+    <button class="button" onclick="window.print()">Print quote</button>
+    <a class="button secondary" href="{{ url_for('quotes') }}">Back</a>
+  </div>
+</section>
+{% endblock %}

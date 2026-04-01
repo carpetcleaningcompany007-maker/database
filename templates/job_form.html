@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Edit Job' if job else 'New Job' }}{% endblock %}
+{% block page_title %}{{ 'Edit Job' if job else 'New Job' }}{% endblock %}
+{% block content %}
+<section class="card form-card">
+  <form method="post" class="form-grid">
+    <label>Customer
+      <select name="customer_id" required>
+        {% for c in customers %}
+        <option value="{{ c['id'] }}" {% if job and c['id'] == job['customer_id'] %}selected{% endif %}>{{ c['name'] }}{% if c['town'] %} • {{ c['town'] }}{% endif %}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Service type<input type="text" name="service_type" value="{{ job['service_type'] if job else '' }}" placeholder="Carpet cleaning" required></label>
+    <label>Job date<input type="date" name="job_date" value="{{ job['job_date'] if job else today }}" required></label>
+    <label>Job time<input type="time" name="job_time" value="{{ job['job_time'] if job else '' }}"></label>
+    <label>Status
+      <select name="status">
+        {% for s in ['Booked','Completed','Cancelled','Quoted'] %}
+        <option value="{{ s }}" {% if job and job['status'] == s %}selected{% endif %}>{{ s }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Rooms or areas<input type="text" name="rooms" value="{{ job['rooms'] if job else '' }}" placeholder="Hall stairs landing, lounge"></label>
+    <label>Total price<input type="number" step="0.01" name="total_price" value="{{ job['total_price'] if job else '' }}"></label>
+    <label>Deposit<input type="number" step="0.01" name="deposit" value="{{ job['deposit'] if job else '' }}"></label>
+    <label class="full">Notes<textarea name="notes">{{ job['notes'] if job else '' }}</textarea></label>
+    <div class="form-actions full">
+      <button class="button" type="submit">Save job</button>
+      <a class="button secondary" href="{{ url_for('jobs') }}">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

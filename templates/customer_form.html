@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Edit Customer' if customer else 'New Customer' }}{% endblock %}
+{% block page_title %}{{ 'Edit Customer' if customer else 'New Customer' }}{% endblock %}
+{% block content %}
+<section class="card form-card">
+  <form method="post" class="form-grid">
+    <label>Name<input type="text" name="name" value="{{ customer['name'] if customer else '' }}" required></label>
+    <label>Phone<input type="text" name="phone" value="{{ customer['phone'] if customer else '' }}"></label>
+    <label>Email<input type="email" name="email" value="{{ customer['email'] if customer else '' }}"></label>
+    <label>Address<input type="text" name="address1" value="{{ customer['address1'] if customer else '' }}"></label>
+    <label>Town<input type="text" name="town" value="{{ customer['town'] if customer else '' }}"></label>
+    <label>Postcode<input type="text" name="postcode" value="{{ customer['postcode'] if customer else '' }}"></label>
+    <label class="full">Notes<textarea name="notes">{{ customer['notes'] if customer else '' }}</textarea></label>
+    <div class="form-actions full">
+      <button class="button" type="submit">Save customer</button>
+      <a class="button secondary" href="{{ url_for('customers') }}">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block content %}
+<div class="cards four">
+  <div class="card stat"><span>Total customers</span><strong>{{ stats.customers }}</strong></div>
+  <div class="card stat"><span>Total jobs</span><strong>{{ stats.jobs }}</strong></div>
+  <div class="card stat"><span>Open quotes</span><strong>{{ stats.quotes_open }}</strong></div>
+  <div class="card stat"><span>Unpaid invoices</span><strong>{{ stats.invoices_unpaid }}</strong></div>
+</div>
+<div class="cards two">
+  <div class="card stat big"><span>Paid invoice revenue</span><strong>£{{ '%.2f'|format(stats.revenue or 0) }}</strong></div>
+  <div class="card actions-card">
+    <a class="button" href="{{ url_for('new_customer') }}">New customer</a>
+    <a class="button" href="{{ url_for('new_job') }}">New job</a>
+    <a class="button" href="{{ url_for('new_quote') }}">New quote</a>
+    <a class="button" href="{{ url_for('new_invoice') }}">New invoice</a>
+  </div>
+</div>
+
+<div class="cards two">
+  <section class="card">
+    <div class="section-head"><h2>Upcoming jobs</h2></div>
+    <table>
+      <tr><th>Date</th><th>Customer</th><th>Service</th><th>Status</th></tr>
+      {% for item in upcoming_jobs %}
+      <tr>
+        <td>{{ item['job_date'] }}{% if item['job_time'] %}<br><span class="muted">{{ item['job_time'] }}</span>{% endif %}</td>
+        <td>{{ item['customer_name'] }}<br><span class="muted">{{ item['town'] or '' }}</span></td>
+        <td>{{ item['service_type'] }}</td>
+        <td><span class="pill {{ item['status']|lower|replace(' ','-') }}">{{ item['status'] }}</span></td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4">No jobs yet</td></tr>
+      {% endfor %}
+    </table>
+  </section>
+  <section class="card">
+    <div class="section-head"><h2>Recent quotes</h2></div>
+    <table>
+      <tr><th>Date</th><th>Customer</th><th>Amount</th><th>Status</th></tr>
+      {% for item in recent_quotes %}
+      <tr>
+        <td>{{ item['quote_date'] }}</td>
+        <td>{{ item['customer_name'] }}</td>
+        <td>£{{ '%.2f'|format(item['amount']) }}</td>
+        <td><span class="pill {{ item['status']|lower }}">{{ item['status'] }}</span></td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4">No quotes yet</td></tr>
+      {% endfor %}
+    </table>
+  </section>
+</div>
+{% endblock %}

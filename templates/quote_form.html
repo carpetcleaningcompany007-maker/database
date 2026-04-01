@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Edit Quote' if quote else 'New Quote' }}{% endblock %}
+{% block page_title %}{{ 'Edit Quote' if quote else 'New Quote' }}{% endblock %}
+{% block content %}
+<section class="card form-card">
+  <form method="post" class="form-grid">
+    <label>Customer
+      <select name="customer_id" required>
+        {% for c in customers %}
+        <option value="{{ c['id'] }}" {% if quote and c['id'] == quote['customer_id'] %}selected{% endif %}>{{ c['name'] }}{% if c['town'] %} • {{ c['town'] }}{% endif %}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Quote date<input type="date" name="quote_date" value="{{ quote['quote_date'] if quote else today }}" required></label>
+    <label>Valid until<input type="date" name="valid_until" value="{{ quote['valid_until'] if quote else '' }}"></label>
+    <label>Status
+      <select name="status">
+        {% for s in ['Open','Accepted','Declined','Expired'] %}
+        <option value="{{ s }}" {% if quote and quote['status'] == s %}selected{% endif %}>{{ s }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label class="full">Description<textarea name="description">{{ quote['description'] if quote else '' }}</textarea></label>
+    <label>Amount<input type="number" step="0.01" name="amount" value="{{ quote['amount'] if quote else '' }}"></label>
+    <label class="full">Notes<textarea name="notes">{{ quote['notes'] if quote else '' }}</textarea></label>
+    <div class="form-actions full">
+      <button class="button" type="submit">Save quote</button>
+      <a class="button secondary" href="{{ url_for('quotes') }}">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

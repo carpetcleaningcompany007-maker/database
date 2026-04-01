@@ -1,63 +1,50 @@
-# Vetted Carpet Cleaners starter kit
+# Carpet Cleaning CRM
 
-This is a starter website for a trust first lead generation platform for vetted carpet cleaners.
+A working local Flask CRM for a carpet cleaning business.
 
-## What is included
+## Included
 
-- Public homepage
-- Directory search page using sample JSON
-- Apply to join page
-- Vetting process page
-- Example cleaner profile page
-- Admin dashboard starter layout
-- Supabase starter schema
+- Dashboard
+- Customers
+- Jobs
+- Quotes
+- Invoices
+- Printable quote view
+- Printable invoice view
+- Business settings
+- SQLite database created automatically
 
-## Recommended stack
+## Run it in PowerShell
 
-- GitHub Pages for the public website
-- Supabase for the database, auth, storage, and approval flow
-- Cloudflare Turnstile for spam protection
-- Optional Stripe later for subscriptions or featured listings
+Open PowerShell in this folder and run:
 
-## Folder structure
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+py app.py
+```
 
-- `index.html` main homepage
-- `find.html` public search page
-- `apply.html` cleaner application page
-- `how-it-works.html` public trust process page
-- `profile.html` example profile page
-- `admin/admin.html` admin layout demo
-- `data/cleaners.json` sample listings data
-- `supabase/schema.sql` starter database schema
+Then open:
 
-## How to use this on GitHub
+```powershell
+http://127.0.0.1:5000
+```
 
-1. Create a GitHub repository
-2. Upload the contents of this folder
-3. Enable GitHub Pages from the main branch
-4. Your static public site will go live from GitHub Pages
+## Notes
 
-## Important
+- The database file is `crm.db`
+- The app creates the database automatically on first run
+- Change the secret key in `app.py` before using this in a real environment
+- This is designed as a strong working local foundation that can be expanded with PDF export, calendar sync, SMS, email templates, review links, and customer history
 
-GitHub Pages is static hosting.
-The public site can live there, but the real application logic should live in Supabase.
+## Next upgrades
 
-## Suggested next build steps
-
-1. Create the Supabase project
-2. Run `supabase/schema.sql`
-3. Replace sample JSON with live Supabase queries
-4. Add cleaner login and admin login
-5. Add document upload storage buckets
-6. Add approval and renewal workflow
-7. Add SEO town and service pages
-
-## Good future features
-
-- postcode search
-- featured cleaner placements
-- territory exclusivity
-- lead routing
-- review moderation
-- expiring insurance alerts
-- complaint and dispute handling
+- PDF download instead of print only views
+- Logo upload
+- Customer history timeline
+- SMS reminders
+- Google Calendar sync
+- Email templates and sending
+- Recurring jobs
+- Dashboard charts

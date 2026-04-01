@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Edit Invoice' if invoice else 'New Invoice' }}{% endblock %}
+{% block page_title %}{{ 'Edit Invoice' if invoice else 'New Invoice' }}{% endblock %}
+{% block content %}
+<section class="card form-card">
+  <form method="post" class="form-grid">
+    <label>Customer
+      <select name="customer_id" required>
+        {% for c in customers %}
+        <option value="{{ c['id'] }}" {% if invoice and c['id'] == invoice['customer_id'] %}selected{% endif %}>{{ c['name'] }}{% if c['town'] %} • {{ c['town'] }}{% endif %}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Linked job
+      <select name="job_id">
+        <option value="">None</option>
+        {% for j in jobs %}
+        <option value="{{ j['id'] }}" {% if invoice and invoice['job_id'] == j['id'] %}selected{% endif %}>#{{ j['id'] }} • {{ j['name'] }} • {{ j['service_type'] }} • {{ j['job_date'] }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Invoice date<input type="date" name="invoice_date" value="{{ invoice['invoice_date'] if invoice else today }}" required></label>
+    <label>Due date<input type="date" name="due_date" value="{{ invoice['due_date'] if invoice else '' }}"></label>
+    <label>Status
+      <select name="status">
+        {% for s in ['Unpaid','Paid','Overdue','Cancelled'] %}
+        <option value="{{ s }}" {% if invoice and invoice['status'] == s %}selected{% endif %}>{{ s }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Amount<input type="number" step="0.01" name="amount" value="{{ invoice['amount'] if invoice else '' }}"></label>
+    <label class="full">Description<textarea name="description">{{ invoice['description'] if invoice else '' }}</textarea></label>
+    <label class="full">Notes<textarea name="notes">{{ invoice['notes'] if invoice else '' }}</textarea></label>
+    <div class="form-actions full">
+      <button class="button" type="submit">Save invoice</button>
+      <a class="button secondary" href="{{ url_for('invoices') }}">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

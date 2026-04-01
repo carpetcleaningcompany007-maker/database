@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Settings{% endblock %}
+{% block page_title %}Business Settings{% endblock %}
+{% block content %}
+<section class="card form-card">
+  <form method="post" class="form-grid">
+    <label>Business name<input type="text" name="business_name" value="{{ settings['business_name'] }}" required></label>
+    <label>Phone<input type="text" name="phone" value="{{ settings['phone'] }}"></label>
+    <label>Email<input type="email" name="email" value="{{ settings['email'] }}"></label>
+    <label>Website<input type="text" name="website" value="{{ settings['website'] }}"></label>
+    <label class="full">Address<input type="text" name="address" value="{{ settings['address'] }}"></label>
+    <div class="form-actions full">
+      <button class="button" type="submit">Save settings</button>
+    </div>
+  </form>
+</section>
+{% endblock %}

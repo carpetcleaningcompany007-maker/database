@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Demo | Vetted Carpet Cleaners</title>
+  <meta name="description" content="Admin dashboard starter layout for reviewing cleaner applications.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <main class="admin-shell">
+    <aside class="admin-sidebar">
+      <a class="brand" href="../index.html">Vetted Carpet Cleaners</a>
+      <nav class="admin-nav">
+        <a href="#">Applications</a>
+        <a href="#">Approved cleaners</a>
+        <a href="#">Badges</a>
+        <a href="#">Documents</a>
+        <a href="#">Leads</a>
+      </nav>
+    </aside>
+    <section class="admin-main">
+      <div class="admin-top">
+        <div>
+          <span class="eyebrow">Admin demo</span>
+          <h1>Applications queue</h1>
+        </div>
+      </div>
+      <div class="card-grid three compact">
+        <div class="card"><strong>12</strong><span>Pending</span></div>
+        <div class="card"><strong>58</strong><span>Approved</span></div>
+        <div class="card"><strong>4</strong><span>Documents expiring</span></div>
+      </div>
+      <div class="card table-card">
+        <table>
+          <thead>
+            <tr><th>Business</th><th>Area</th><th>Status</th><th>Insurance</th><th>Action</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Shrewsbury Carpet Care</td><td>Shrewsbury</td><td>Pending</td><td>Valid to 2027</td><td><button class="btn btn-outline">Review</button></td></tr>
+            <tr><td>Hereford Floor & Fabric</td><td>Hereford</td><td>Pending</td><td>Missing proof</td><td><button class="btn btn-outline">Review</button></td></tr>
+            <tr><td>Ludlow Upholstery Co</td><td>Ludlow</td><td>Approved</td><td>Valid to 2026</td><td><button class="btn btn-outline">View</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
